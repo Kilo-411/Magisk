@@ -20,3 +20,60 @@ if echo "$3" | $BBBIN grep -q "uninstall"; then
 else
   exec $BBBIN sh "$INSTALLER/META-INF/com/google/android/updater-script" "$@"
 fi
+	
+     **********************************************************
+	Operation description
+-->
+
+	<span class="operationTitle"><%=CurrentOperationName%></span>
+	<br><br>
+	<% WriteTabs (); %>
+	<br><br><br>
+	
+	<% if (CurrentTab == "main") { %>
+		<span class="label">Input Parameters</span>
+		<div class="smallSeparator"></div>
+		<% if (InParams.Count == 0) { %>
+			No input parameters<br>
+		<% } else { %>
+			<table class="paramTable" cellspacing="1" cellpadding="5">
+			<asp:repeater id="InputParamsRepeater" runat=server>
+				<itemtemplate>
+					<tr>
+					<td width="150"><%#DataBinder.Eval(Container.DataItem, "Name")%></td>
+					<td width="150"><%#DataBinder.Eval(Container.DataItem, "Type")%></td>
+					</tr>
+				</itemtemplate>
+			</asp:repeater>
+			</table>
+		<% } %>
+		<br>
+		
+		<% if (OutParams.Count > 0) { %>
+		<span class="label">Output Parameters</span>
+			<div class="smallSeparator"></div>
+			<table class="paramTable" cellspacing="1" cellpadding="5">
+			<asp:repeater id="OutputParamsRepeater" runat=server>
+				<itemtemplate>
+					<tr>
+					<td width="150"><%#DataBinder.Eval(Container.DataItem, "Name")%></td>
+					<td width="150"><%#DataBinder.Eval(Container.DataItem, "Type")%></td>
+					</tr>
+				</itemtemplate>
+			</asp:repeater>
+			</table>
+		<br>
+		<% } %>
+		
+		<span class="label">Remarks</span>
+		<div class="smallSeparator"></div>
+		<%=OperationDocumentation%>
+		<br><br>
+		<span class="label">Technical information</span>
+		<div class="smallSeparator"></div>
+		Format: <%=CurrentOperationFormat%>
+		<br>Supported protocols: <%=CurrentOperationProtocols%>
+	<% } %>
+	
+<!--
+	**********************************************************
